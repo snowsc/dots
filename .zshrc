@@ -1,5 +1,4 @@
 autoload -Uz compinit promptinit
-compinit
 promptinit
 
 setopt COMPLETE_ALIASES
@@ -16,39 +15,34 @@ export BROWSER=/usr/bin/firefox
 export TIME_STYLE=long-iso
 export XDG_DOWNLOAD_DIR="$HOME/dl"
 
-export RESTIC_REPOSITORY=/home/snowsc/tmp/restic/snowback
-export RESTIC_PASSWORD=snow
+export RESTIC_REPOSITORY=/var/backups/restic
+export RESTIC_PASSWORD_FILE="$HOME/.config/restic/password"
+export PIP_REQUIRE_VIRTUALENV=true
 
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
-setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
-setopt inc_append_history
 setopt share_history
+setopt auto_param_slash
 
-setopt autocd extendedglob nomatch notify
+setopt autocd extendedglob nonomatch notify
 unsetopt beep
-# bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/snowsc/.zshrc'
 
-set -o vi
+zstyle :compinstall filename '/home/snowsc/.zshrc'
+compinit
+
+bindkey -v
 
 . /usr/share/fzf/completion.zsh
 . /usr/share/fzf/key-bindings.zsh
-
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
 
 # export MOZ_ENABLE_WAYLAND=1 firefox
 
 alias ww='curl wttr.in'
 # alias r='ranger'
-alias c='cal -yw'
+alias c='claude'
+alias cl='cal -ywm'
 #alias b='cat /sys/class/power_supply/BAT0/capacity'
 alias b='acpi -b'
 alias p='grep -E "installed|removed" /var/log/pacman.log'
@@ -69,21 +63,23 @@ alias im="pacman -Ql imagemagick | grep bin"
 alias l="iw dev wlan0 link"
 alias ll="iw dev wlan0 station dump"
 alias d="du -sh ~/* | sort -hr"
+alias t="tokei -n commas"
 # alias ps="pacman -Qi | awk '/^Name/{name=$3}/^Installed Size/{size=$4 $5; print size, name}' | sort -hr | head -n 20"
 # alias st='systool -vm iwlwifi'
 alias cg='systemd-cgtop'
-alias ctl="find \$(echo '\$PATH' | tr ':' ' ') -type f -executable -name '*ctl'"
 
 # Repo for dotfiles
 # git init --bare $HOME/.dotfiles
 # dotfiles config --local status.showUntrackedFiles no
 alias dots='/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME'
-
+compdef dots=git
 
 zstyle ':completion:*' rehash true
 
+ctl() { find ${(s.:.)PATH} -type f -executable -name '*ctl' 2>/dev/null }
+
 open() {
-    xdg-open "$(find -type f | fzf)"
+    xdg-open "$(find . -type f | fzf)"
 }
 
 eval "$(zoxide init zsh)"
@@ -91,4 +87,6 @@ eval "$(zoxide init zsh)"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
 
+typeset -U path
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$HOME/.local/bin:$PATH"
