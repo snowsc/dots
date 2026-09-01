@@ -19,12 +19,19 @@ export RESTIC_REPOSITORY=/var/backups/restic
 export RESTIC_PASSWORD_FILE="$HOME/.config/restic/password"
 export PIP_REQUIRE_VIRTUALENV=true
 
+# export HERMES_DOCKER_BINARY=podman
+# export TERMINAL_ENV=docker # Run agent commands in containers rather than directly on Arch
+# export TERMINAL_TIMEOUT=300
+# export TERMINAL_DOCKER_EXTRA_ARGS='["--memory","4g","--cpus","4"]'
+# export HERMES_WRITE_SAFE_ROOT="$HOME/hermes-workspace:$HOME/.hermes"
+
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 setopt HIST_IGNORE_ALL_DUPS
 setopt share_history
 setopt auto_param_slash
+setopt GLOB_COMPLETE
 
 setopt autocd extendedglob nonomatch notify
 unsetopt beep
@@ -40,13 +47,12 @@ bindkey -v
 # export MOZ_ENABLE_WAYLAND=1 firefox
 
 alias ww='curl wttr.in'
-# alias r='ranger'
 alias c='claude'
 alias cl='cal -ywm'
-#alias b='cat /sys/class/power_supply/BAT0/capacity'
 alias b='acpi -b'
 alias p='grep -E "installed|removed" /var/log/pacman.log'
-alias pp='ps --ppid 2 --deselect f -o user,pid,ppid,%cpu,%mem,stat,start,command --sort=-%cpu'
+alias pp='ps --ppid 2 --deselect f -o user,pid,ppid,%cpu,%mem,stat,start,command --sort=-%cpu' 
+alias ppf='ps --ppid 2 --deselect f -o user,pid,ppid,%cpu,%mem,stat,start,command --sort=-%cpu | grep -v firefox'
 alias ppg='pp | grep -i'
 alias ls='ls --color=auto -F'
 alias v='nvim'
@@ -68,6 +74,9 @@ alias t="tokei -n commas"
 # alias ps="pacman -Qi | awk '/^Name/{name=$3}/^Installed Size/{size=$4 $5; print size, name}' | sort -hr | head -n 20"
 # alias st='systool -vm iwlwifi'
 alias cg='systemd-cgtop'
+alias m='maim -s 2>/dev/null | xclip -selection clipboard -t image/png'
+alias sweethome3d='JAVA_TOOL_OPTIONS="-Dcom.eteks.sweethome3d.resolutionScale=1.5" /usr/bin/sweethome3d'
+alias h='sudo machinectl shell hermes@'
 
 # Repo for dotfiles
 # git init --bare $HOME/.dotfiles
@@ -91,3 +100,4 @@ complete -o nospace -C /usr/bin/terraform terraform
 typeset -U path
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$HOME/.local/bin:$PATH"
+eval "$(fnm env --use-on-cd)"

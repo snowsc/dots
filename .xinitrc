@@ -43,6 +43,7 @@ fi
 #xterm -geometry 80x50+494+51 &
 #xterm -geometry 80x20+494-0 &
 #exec xterm -geometry 80x66+0+0 -name login
-~/git/slstatus/slstatus &
+wmname LG3D & #for Sweet Home 3D only
 picom -b 
+slstatus &
 exec dwm
