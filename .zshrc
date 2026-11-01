@@ -78,6 +78,9 @@ alias m='maim -s 2>/dev/null | xclip -selection clipboard -t image/png'
 alias sweethome3d='JAVA_TOOL_OPTIONS="-Dcom.eteks.sweethome3d.resolutionScale=1.5" /usr/bin/sweethome3d'
 alias h='sudo machinectl shell hermes@'
 
+alias fixhdmi='xrandr --output HDMI-1 --mode 3840x2160 --rate 30; sleep 2; xrandr --output HDMI-1 --mode 3840x2160 --rate 60'
+
+
 # Repo for dotfiles
 # git init --bare $HOME/.dotfiles
 # dotfiles config --local status.showUntrackedFiles no
