@@ -39,6 +39,10 @@ unsetopt beep
 zstyle :compinstall filename '/home/snowsc/.zshrc'
 compinit
 
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+bindkey '^I' complete-word
+
 bindkey -v
 
 . /usr/share/fzf/completion.zsh
@@ -63,8 +67,8 @@ alias f='yazi'
 alias ff='fastfetch'
 alias ssa='ss -lpntu'
 alias dm='sudo dmesg --follow -H --color=always'
-alias wende_monitor='xrandr --output DP-1 --auto --left-of eDP-1 --output eDP-1 --off;~/.fehbg'
-alias scott_monitor='xrandr --output DP-1 --mode 2560x1080 --left-of eDP-1 --output eDP-1 --off'
+# alias wende_monitor='xrandr --output DP-1 --auto --left-of eDP-1 --output eDP-1 --off;~/.fehbg'
+# alias scott_monitor='xrandr --output DP-1 --mode 2560x1080 --left-of eDP-1 --output eDP-1 --off'
 alias xe="grep -E '\((WW|EE)' ~/.local/share/xorg/Xorg.0.log"
 alias im="pacman -Ql imagemagick | grep bin"
 alias l="iw dev wlan0 link"
@@ -78,7 +82,7 @@ alias m='maim -s 2>/dev/null | xclip -selection clipboard -t image/png'
 alias sweethome3d='JAVA_TOOL_OPTIONS="-Dcom.eteks.sweethome3d.resolutionScale=1.5" /usr/bin/sweethome3d'
 alias h='sudo machinectl shell hermes@'
 
-alias fixhdmi='xrandr --output HDMI-1 --mode 3840x2160 --rate 30; sleep 2; xrandr --output HDMI-1 --mode 3840x2160 --rate 60'
+# alias fixhdmi='xrandr --output HDMI-1 --mode 3840x2160 --rate 30; sleep 2; xrandr --output HDMI-1 --mode 3840x2160 --rate 60'
 
 
 # Repo for dotfiles

@@ -7,3 +7,6 @@ pdf = [
 prepend_rules = [
 	{ mime = "application/pdf", use = [ "pdf" ] },
 ]
+
+[mgr]
+linemode = "ls_long"
